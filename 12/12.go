@@ -62,13 +62,11 @@ func leastCommonMultiple(a, b int64, integers ...int64) int64 {
 
 func main() {
 	var moons []*moon
-	var initialMoons []*moon
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		var x, y, z int
 		fmt.Sscanf(scanner.Text(), "<x=%d, y=%d, z=%d>", &x, &y, &z)
 		moons = append(moons, &moon{x: x, y: y, z: z})
-		initialMoons = append(initialMoons, &moon{x: x, y: y, z: z})
 	}
 
 	/// number of iterations before velocity for all moons, at the specified axis, is 0
