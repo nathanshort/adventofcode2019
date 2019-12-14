@@ -6,6 +6,7 @@ import (
 	"math"
 	"os"
 	"regexp"
+	"sort"
 	"strings"
 )
 
@@ -74,26 +75,13 @@ func main() {
 
 	/// part 2
 	{
-		target := int64(1000000000000)
-		left := 0
-		right := 100000000
-		bestCount := -1
-
-		for left <= right {
-			middle := int(math.Floor(float64(left+right) / float64(2)))
+		best := sort.Search(100000000, func(i int) bool {
 			oreCollected = 0
 			var inventory = make(map[string]int64)
-			produce(component{chemical: "FUEL", count: int64(middle)}, inventory, reactions)
-			if oreCollected < target {
-				bestCount = middle
-				left = middle + 1
-			} else if oreCollected > target {
-				right = middle - 1
-			} else {
-				bestCount = middle
-				break
-			}
-		}
-		fmt.Printf("part 2 %d\n", bestCount)
+			produce(component{chemical: "FUEL", count: int64(i)}, inventory, reactions)
+			return oreCollected > 1000000000000
+		})
+		/// -1 as search returns [0,n]
+		fmt.Printf("part 2:%d\n", best-1)
 	}
 }
